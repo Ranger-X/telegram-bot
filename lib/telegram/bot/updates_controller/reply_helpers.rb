@@ -39,6 +39,17 @@ module Telegram
           bot.answer_callback_query(params)
         end
 
+        # Same as reply_with, but for precheckout queries.
+        def answer_precheckout_query(error_message = nil)
+          params = {
+            pre_checkout_query_id: payload['id'],
+            ok: error_message.to_s.empty?,
+          }
+          params[:error_message] = error_message.to_s unless error_message.to_s.empty?
+
+          bot.answer_precheckout_query(params)
+        end
+
         # Edit message from callback query.
         def edit_message(type, params = {})
           params =
